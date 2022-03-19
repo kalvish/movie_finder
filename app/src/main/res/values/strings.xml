@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">My Application</string>
+    <string name="app_name">Movie Finder</string>
+
+    <string name="title_now_playing">Now playing</string>
+    <string name="title_popular">Popular</string>
+    <string name="title_top_rated">Top rated</string>
+    <string name="title_upcoming">Upcoming</string>
 </resources>

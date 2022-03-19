@@ -4,6 +4,12 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
+        <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/activity_movies.xml" value="0.1" />
+        <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/fragment_now_playing.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/fragment_popular.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/fragment_top_rated.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/fragment_upcoming.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18802083333333333" />
       </map>
     </option>
   </component>

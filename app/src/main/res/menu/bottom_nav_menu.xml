@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/navigation_now_playing"
+        android:icon="@drawable/outline_live_tv_24"
+        android:title="@string/title_now_playing" />
+
+    <item
+        android:id="@+id/navigation_popular"
+        android:icon="@drawable/outline_trending_up_24"
+        android:title="@string/title_popular" />
+
+    <item
+        android:id="@+id/navigation_top_rated"
+        android:icon="@drawable/outline_star_rate_24"
+        android:title="@string/title_top_rated" />
+
+    <item
+        android:id="@+id/navigation_upcoming"
+        android:icon="@drawable/outline_new_releases_24"
+        android:title="@string/title_upcoming" />
+
+</menu>

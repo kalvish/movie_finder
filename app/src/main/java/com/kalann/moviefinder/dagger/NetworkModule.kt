@@ -8,7 +8,6 @@ import dagger.Provides
 import retrofit2.Retrofit
 import retrofit2.converter.moshi.MoshiConverterFactory
 
-@ApplicationScope
 @Module
 class NetworkModule {
 
@@ -18,20 +17,20 @@ class NetworkModule {
             .add(KotlinJsonAdapterFactory())
             .build();
     }
+    @ApplicationScope
     @Provides
     fun provideRetrofitClient(moshi: Moshi) : Retrofit {
         return Retrofit.Builder()
             .addConverterFactory(MoshiConverterFactory.create(moshi))
-            .baseUrl("https://example.com")
+            .baseUrl("https://api.themoviedb.org/")
             .build()
     }
+    @ApplicationScope
     @Provides
     fun provideMFinService(retrofit: Retrofit): MFinService {
         // Whenever Dagger needs to provide an instance of type LoginRetrofitService,
         // this code (the one inside the @Provides method) is run.
-        return Retrofit.Builder()
-            .baseUrl("https://api.themoviedb.org/")
-            .build()
+        return retrofit
             .create(MFinService::class.java)
     }
 }
