@@ -5,4 +5,7 @@
     <string name="title_popular">Popular</string>
     <string name="title_top_rated">Top rated</string>
     <string name="title_upcoming">Upcoming</string>
+    <string name="search_title">Find a movie</string>
+    <string name="search_hint">Find a movie</string>
+    <string name="no_results">No results available</string>
 </resources>

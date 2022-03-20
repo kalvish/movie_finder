@@ -19,14 +19,14 @@ class NowPlayingViewModel(val moviesViewModel: MoviesViewModel): ViewModel() {
     val moviesList : LiveData<List<Movie>>
         get() = _moviesList
 
-    fun getMoviesForType(type: MFinService.PageTypes, page: String) : LiveData<List<Movie>> {
+    fun getMoviesForType(type: MFinService.PageTypes, page: Int) : LiveData<List<Movie>> {
         viewModelScope.launch {
             getMoviesFromManager(type, page)
         }
         return moviesList
     }
 
-    private suspend fun getMoviesFromManager(type: MFinService.PageTypes, page: String){
+    private suspend fun getMoviesFromManager(type: MFinService.PageTypes, page: Int){
         _networkStatus.value = MFinService.MovieApiNetworkStatus.LOADING
         try {
             val results = moviesViewModel.getForType(type, page)

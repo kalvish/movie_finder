@@ -7,5 +7,5 @@ import javax.inject.Inject
 @MoviesScope
 class MoviesViewModel @Inject constructor(val movieManager: MovieManager) {
     suspend fun getForType(type: MFinService.PageTypes,
-                           page: String) = movieManager.getForType(type, page)
+                           page: Int) = movieManager.getForType(type, page)
 }

@@ -68,14 +68,14 @@ class NowPlayingFragment: Fragment() {
         }
 
         val recyclerView = view.findViewById<RecyclerView>(R.id.recycler_view_movies)
-        val adapterMarsImges = NwPlayingMoviesAdapter(object : NwPlayingMoviesAdapter.OnMovieClickListener {
+        val adapterMovies = NwPlayingMoviesAdapter(object : NwPlayingMoviesAdapter.OnMovieClickListener {
             override fun onClickListItem(movie: Movie) {
             }
 
         })
-        recyclerView.adapter = adapterMarsImges
-        nowPlayingViewModel.getMoviesForType(MFinService.PageTypes.NOW_PLAYING,"1").observe(viewLifecycleOwner, {
-            adapterMarsImges.submitList(it)
+        recyclerView.adapter = adapterMovies
+        nowPlayingViewModel.getMoviesForType(MFinService.PageTypes.NOW_PLAYING,2).observe(viewLifecycleOwner, {
+            adapterMovies.submitList(it)
         })
     }
 }

@@ -6,8 +6,9 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface MFinService {
-    object MFin{
+    object Instance{
         val API_KEY = "0e7274f05c36db12cbe71d9ab0393d47"
+        val MOVIEDB_STARTING_PAGE_INDEX = 1
     }
 
     enum class MovieApiNetworkStatus {
@@ -25,6 +26,11 @@ interface MFinService {
 
     @GET("3/movie/{type}")
     suspend fun getMovies(@Path("type") type : String? = null,
-                              @Query("page") page : String,
-    @Query("api_key") apiKey : String): Movies
+                          @Query("page") page : Int,
+                          @Query("api_key") apiKey : String): Movies
+
+    @GET("3/search/movie")
+    suspend fun searchMovies(@Query("query") query: String,
+                             @Query("page") page : Int,
+                             @Query("api_key") apiKey : String): Movies
 }

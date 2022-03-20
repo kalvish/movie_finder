@@ -3,6 +3,7 @@ package com.kalann.moviefinder.dagger
 import com.kalann.moviefinder.api.MFinService
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import retrofit2.Retrofit
