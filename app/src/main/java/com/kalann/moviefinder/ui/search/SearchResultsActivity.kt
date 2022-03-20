@@ -136,9 +136,7 @@ class SearchResultsActivity : AppCompatActivity() {
             }
         })
         val notLoading = movieAdapter.loadStateFlow
-            // Only emit when REFRESH LoadState for RemoteMediator changes.
             .distinctUntilChangedBy { it.source.refresh }
-            // Only react to cases where Remote REFRESH completes i.e., NotLoading.
             .map { it.source.refresh is LoadState.NotLoading }
 
         val hasNotScrolledForCurrentSearch = uiState

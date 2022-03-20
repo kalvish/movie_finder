@@ -16,10 +16,18 @@ class MovieDataRepository @Inject constructor(val movieManager: MovieManager) {
                            page: Int) = movieManager.getForType(type,page)
 
     fun getSearchResultStream(query: String): Flow<PagingData<Movie>> {
-        Log.d("MovieDataRepository", "New query: $query")
+        Log.d("MovieDataRepository", "getSearchResultStream New query: $query")
         return Pager(
             config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false),
-            pagingSourceFactory = { MoviePagingSource(movieManager, query) }
+            pagingSourceFactory = { MovieSearchPagingSource(movieManager, query) }
+        ).flow
+    }
+
+    fun getFeedResultStream(feedType: MFinService.PageTypes): Flow<PagingData<Movie>> {
+        Log.d("MovieDataRepository", "getFeedResultStream New Type: $feedType")
+        return Pager(
+            config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false),
+            pagingSourceFactory = { MovieFeedPagingSource(movieManager, feedType) }
         ).flow
     }
 

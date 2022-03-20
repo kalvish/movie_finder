@@ -7,9 +7,9 @@ import com.kalann.moviefinder.api.moshi.Movie
 import retrofit2.HttpException
 import java.io.IOException
 
-class MoviePagingSource (
+class MovieFeedPagingSource (
     private val movieManager: MovieManager,
-    private val query : String) : PagingSource<Int, Movie>() {
+    private val feedType : MFinService.PageTypes) : PagingSource<Int, Movie>() {
     override fun getRefreshKey(state: PagingState<Int, Movie>): Int? {
         return state.anchorPosition?.let { anchorPosition ->
             state.closestPageToPosition(anchorPosition)?.prevKey?.plus(1)
@@ -19,9 +19,9 @@ class MoviePagingSource (
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
         val position = params.key ?: MFinService.Instance.MOVIEDB_STARTING_PAGE_INDEX
-        val apiQuery = query
+
         return try {
-            val response = movieManager.searchMovies(apiQuery, position)
+            val response = movieManager.getForType(feedType, position)
             val movies = response.results
             val nextKey = if(movies!!.isEmpty()){
                 null
