@@ -6,8 +6,10 @@ import javax.inject.Inject
 
 @ApplicationScope
 class MovieManager @Inject constructor(private val mFinService: MFinService){
+    suspend fun getMovieFromApi(id: Int) = mFinService.getMovieFromApi(id,MFinService.Instance.API_KEY)
+
     suspend fun getForType(type: MFinService.PageTypes,
-    page: Int) = mFinService.getMovies(type.value,page,MFinService.Instance.API_KEY)
+    page: Int) = mFinService.getMoviesFromApi(type.value,page,MFinService.Instance.API_KEY)
 
     suspend fun searchMovies(query: String,
                            page: Int) = mFinService.searchMovies(query,page,MFinService.Instance.API_KEY)

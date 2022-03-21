@@ -5,19 +5,21 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.findNavController
 import com.kalann.moviefinder.MoviesActivity
 import com.kalann.moviefinder.R
 import com.kalann.moviefinder.api.MFinService
 import com.kalann.moviefinder.api.moshi.Movie
-import com.kalann.moviefinder.databinding.FragmentNowPlayingBinding
 import com.kalann.moviefinder.databinding.FragmentTopRatedBinding
 import com.kalann.moviefinder.movies.MovieAdapter
+import com.kalann.moviefinder.movies.MovieConstants
 import com.kalann.moviefinder.movies.MovieDataRepository
-import com.kalann.moviefinder.ui.popular.PopularViewModel
-import com.kalann.moviefinder.ui.popular.PopularViewModelFactory
+import com.kalann.moviefinder.ui.MoviesViewModelLifecycle
+import com.kalann.moviefinder.ui.MoviesViewModelLifecycleFactory
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -45,11 +47,13 @@ class TopRatedFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val popularViewModelFactory = PopularViewModelFactory(moviesDataRepository, MFinService.PageTypes.TOP_RATED)
+        val popularViewModelFactory = MoviesViewModelLifecycleFactory(moviesDataRepository, MFinService.PageTypes.TOP_RATED)
         val popularViewModel = ViewModelProvider(this, popularViewModelFactory)
-            .get(PopularViewModel::class.java)
+            .get(MoviesViewModelLifecycle::class.java)
         val movieAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
             override fun onClickListItem(movie: Movie) {
+                val bundle = bundleOf(MovieConstants.MOVIE_ID to movie.id)
+                view.findNavController().navigate(R.id.action_navigation_top_rated_to_movieDetailsFragment, bundle)
             }
         })
         fragmentTopRatedBinding.recyclerViewMovies.adapter = movieAdapter

@@ -1,6 +1,7 @@
 package com.kalann.moviefinder.dagger
 
 import com.kalann.moviefinder.MoviesActivity
+import com.kalann.moviefinder.ui.movie_details.MovieDetailsFragment
 import com.kalann.moviefinder.ui.search.SearchResultsActivity
 import com.kalann.moviefinder.ui.now_playing.NowPlayingFragment
 import com.kalann.moviefinder.ui.popular.PopularFragment
@@ -23,4 +24,6 @@ interface MoviesComponent {
     fun inject(upcomingFragment: UpcomingFragment)
 
     fun inject(searchResultsActivity: SearchResultsActivity)
+
+    fun inject(movieDetailsFragment: MovieDetailsFragment)
 }

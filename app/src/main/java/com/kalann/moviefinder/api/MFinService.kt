@@ -1,5 +1,6 @@
 package com.kalann.moviefinder.api
 
+import com.kalann.moviefinder.api.moshi.Movie
 import com.kalann.moviefinder.api.moshi.Movies
 import retrofit2.http.GET
 import retrofit2.http.Path
@@ -9,6 +10,7 @@ interface MFinService {
     object Instance{
         val API_KEY = "0e7274f05c36db12cbe71d9ab0393d47"
         val MOVIEDB_STARTING_PAGE_INDEX = 1
+        val IMAGE_BASE_URL = "https://image.tmdb.org/t/p/original/"
     }
 
     enum class MovieApiNetworkStatus {
@@ -24,8 +26,12 @@ interface MFinService {
         UPCOMING("upcoming")
     }
 
+    @GET("3/movie/{id}")
+    suspend fun getMovieFromApi(@Path("id") id : Int? = null,
+                          @Query("api_key") apiKey : String): Movie
+
     @GET("3/movie/{type}")
-    suspend fun getMovies(@Path("type") type : String? = null,
+    suspend fun getMoviesFromApi(@Path("type") type : String? = null,
                           @Query("page") page : Int,
                           @Query("api_key") apiKey : String): Movies
 

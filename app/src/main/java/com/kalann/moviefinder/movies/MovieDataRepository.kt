@@ -12,6 +12,8 @@ import javax.inject.Inject
 
 @MoviesScope
 class MovieDataRepository @Inject constructor(val movieManager: MovieManager) {
+    suspend fun getMovie(id: Int) = movieManager.getMovieFromApi(id)
+
     suspend fun getForType(type: MFinService.PageTypes,
                            page: Int) = movieManager.getForType(type,page)
 

@@ -51,4 +51,8 @@ class MoviesActivity : AppCompatActivity() {
 
         return true
     }
+
+    override fun onSupportNavigateUp(): Boolean {
+        return navController.navigateUp() || super.onSupportNavigateUp()
+    }
 }

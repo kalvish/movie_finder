@@ -1,7 +1,10 @@
 package com.kalann.moviefinder.api.moshi
 
+import androidx.room.Entity
+import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
+@Entity
 data class Movie (
     @Json(name = "adult")
     var adult: Boolean? = null,
@@ -21,8 +24,9 @@ data class Movie (
     @Json(name = "homepage")
     var homepage: String? = null,
 
+    @PrimaryKey(autoGenerate = false)
     @Json(name = "id")
-    var id: Int? = null,
+    var id: Int,
 
     @Json(name = "imdb_id")
     var imdbId: String? = null,

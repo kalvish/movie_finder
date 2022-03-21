@@ -9,23 +9,44 @@
         android:name="com.kalann.moviefinder.ui.now_playing.NowPlayingFragment"
         android:label="@string/title_now_playing"
         tools:layout="@layout/fragment_now_playing" >
+        <action
+            android:id="@+id/action_navigation_now_playing_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_popular"
         android:name="com.kalann.moviefinder.ui.popular.PopularFragment"
         android:label="@string/title_popular"
         tools:layout="@layout/fragment_popular" >
+        <action
+            android:id="@+id/action_navigation_popular_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_top_rated"
         android:name="com.kalann.moviefinder.ui.top_rated.TopRatedFragment"
         android:label="@string/title_top_rated"
         tools:layout="@layout/fragment_top_rated" >
+        <action
+            android:id="@+id/action_navigation_top_rated_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
     </fragment>
     <fragment
         android:id="@+id/navigation_upcoming"
         android:name="com.kalann.moviefinder.ui.upcoming.UpcomingFragment"
         android:label="@string/title_upcoming"
         tools:layout="@layout/fragment_upcoming" >
+        <action
+            android:id="@+id/action_navigation_upcoming_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/movieDetailsFragment"
+        android:name="com.kalann.moviefinder.ui.movie_details.MovieDetailsFragment"
+        android:label="MovieDetailsFragment" />
+    <activity
+        android:id="@+id/searchResultsActivity"
+        android:name="com.kalann.moviefinder.ui.search.SearchResultsActivity"
+        android:label="activity_search_results"
+        tools:layout="@layout/activity_search_results" />
 </navigation>

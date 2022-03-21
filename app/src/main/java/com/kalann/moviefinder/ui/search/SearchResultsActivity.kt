@@ -1,25 +1,28 @@
 package com.kalann.moviefinder.ui.search
 
-import android.app.Activity
 import android.app.SearchManager
 import android.content.Intent
 import android.os.Bundle
 import android.view.KeyEvent
 import android.view.inputmethod.EditorInfo
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.os.bundleOf
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.NavDeepLinkBuilder
 import androidx.paging.LoadState
 import androidx.paging.PagingData
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.kalann.moviefinder.MFinApplication
+import com.kalann.moviefinder.R
 import com.kalann.moviefinder.api.moshi.Movie
 import com.kalann.moviefinder.dagger.MoviesComponent
 import com.kalann.moviefinder.databinding.ActivitySearchResultsBinding
 import com.kalann.moviefinder.movies.MovieAdapter
+import com.kalann.moviefinder.movies.MovieConstants
 import com.kalann.moviefinder.movies.MovieDataRepository
-import com.kalann.moviefinder.ui.now_playing.NwPlayingMoviesAdapter
+import com.kalann.moviefinder.ui.movie_details.MovieDetailsFragment
 import kotlinx.coroutines.flow.*
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -70,6 +73,13 @@ class SearchResultsActivity : AppCompatActivity() {
     ) {
         val movieAdapter = MovieAdapter(object : MovieAdapter.OnMovieClickListener {
             override fun onClickListItem(movie: Movie) {
+                val bundle = bundleOf(MovieConstants.MOVIE_ID to movie.id)
+                val pendingIntent = NavDeepLinkBuilder(applicationContext)
+                    .setGraph(R.navigation.nav_graph)
+                    .setDestination(R.id.movieDetailsFragment, bundle)
+                    .createPendingIntent()
+                pendingIntent.send()
+
             }
         })
         list.adapter = movieAdapter

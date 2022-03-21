@@ -6,7 +6,7 @@ import dagger.BindsInstance
 import dagger.Component
 
 @ApplicationScope
-@Component(modules = [NetworkModule::class, SubcomponentsModule::class])
+@Component(modules = [NetworkModule::class, SubcomponentsModule::class, StorageModule::class])
 interface AppComponent {
     // Factory to create instances of the AppComponent
     @Component.Factory

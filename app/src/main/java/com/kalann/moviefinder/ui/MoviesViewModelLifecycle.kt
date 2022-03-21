@@ -1,4 +1,4 @@
-package com.kalann.moviefinder.ui.top_rated
+package com.kalann.moviefinder.ui
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -9,8 +9,8 @@ import com.kalann.moviefinder.api.moshi.Movie
 import com.kalann.moviefinder.movies.MovieDataRepository
 import kotlinx.coroutines.flow.Flow
 
-class TopRatedViewModel (val movieDataRepository: MovieDataRepository
-                         , feedType: MFinService.PageTypes) : ViewModel() {
+class MoviesViewModelLifecycle(val movieDataRepository: MovieDataRepository
+                               , feedType: MFinService.PageTypes) : ViewModel() {
     val pagingDataFlow: Flow<PagingData<Movie>> = movieDataRepository.getFeedResultStream(feedType)
-        .cachedIn(viewModelScope)
+    .cachedIn(viewModelScope)
 }
