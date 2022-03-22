@@ -10,6 +10,7 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.kalann.moviefinder.MoviesActivity
@@ -19,6 +20,9 @@ import com.kalann.moviefinder.api.moshi.Movie
 import com.kalann.moviefinder.databinding.FragmentMovieDetailBinding
 import com.kalann.moviefinder.movies.MovieConstants
 import com.kalann.moviefinder.movies.MovieDataRepository
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class MovieDetailsFragment : Fragment() {
@@ -64,9 +68,48 @@ class MovieDetailsFragment : Fragment() {
             }
         }
 
-
-        movieDetailsViewModel.getMovie(arguments?.get(MovieConstants.MOVIE_ID) as Int).observe(viewLifecycleOwner) { movie ->
+        val movieId = arguments?.get(MovieConstants.MOVIE_ID) as Int
+        var movieLoaded : Movie? = null
+        movieDetailsViewModel.getMovie(movieId).observe(viewLifecycleOwner) { movie ->
+            movieLoaded = movie
             bind(movie, fragmentMovieDetailBinding.imageViewMovieDetailImage)
+            //If movie loaded successfully, user will get the ability to click
+            //favourite icon
+            fragmentMovieDetailBinding.imageViewFavourite.visibility = View.VISIBLE
+        }
+
+        fragmentMovieDetailBinding.imageViewFavourite.setOnClickListener {
+            lifecycleScope.launch(Dispatchers.Main) {
+                var movieFromDb: Movie?
+                withContext(Dispatchers.IO) {
+                    movieFromDb = movieDetailsViewModel.getMovieForIdFromDb(movieId)
+                }
+//                    withContext(Dispatchers.Main) {
+                if (movieFromDb == null) {
+                    withContext(Dispatchers.IO) {
+                        movieDetailsViewModel.saveMovieToDb(movieLoaded!!)
+                    }
+                    fragmentMovieDetailBinding.imageViewFavourite.setImageResource(R.drawable.outline_favorite_24)
+                } else {
+                    withContext(Dispatchers.IO) {
+                        movieDetailsViewModel.deleteMovieFromDb(movieFromDb!!)
+                    }
+                    fragmentMovieDetailBinding.imageViewFavourite.setImageResource(R.drawable.outline_favorite_border_24)
+                }
+//                    }
+            }
+        }
+
+        lifecycleScope.launch {
+            var movieFromDb: Movie? = null
+            withContext(Dispatchers.IO) {
+                movieFromDb = movieDetailsViewModel.getMovieForIdFromDb(movieId)
+            }
+            if (movieFromDb == null) {
+                fragmentMovieDetailBinding.imageViewFavourite.setImageResource(R.drawable.outline_favorite_border_24)
+            }else{
+                fragmentMovieDetailBinding.imageViewFavourite.setImageResource(R.drawable.outline_favorite_24)
+            }
         }
     }
 

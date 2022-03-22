@@ -13,7 +13,7 @@ data class Movie (
     var backdropPath: String? = null,
 
     @Json(name = "belongs_to_collection")
-    var belongsToCollection: Any? = null,
+    var belongsToCollection: String? = null,
 
     @Json(name = "budget")
     var budget: Int? = null,

@@ -8,4 +8,5 @@
     <string name="search_title">Find a movie</string>
     <string name="search_hint">Find a movie</string>
     <string name="no_results">No results available</string>
+    <string name="favourites">Favourites</string>
 </resources>

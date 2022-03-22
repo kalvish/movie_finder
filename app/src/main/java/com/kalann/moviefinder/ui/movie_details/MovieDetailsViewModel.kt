@@ -7,7 +7,9 @@ import androidx.lifecycle.viewModelScope
 import com.kalann.moviefinder.api.MFinService
 import com.kalann.moviefinder.api.moshi.Movie
 import com.kalann.moviefinder.movies.MovieDataRepository
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MovieDetailsViewModel(val movieDataRepository: MovieDataRepository) : ViewModel() {
     private val _networkStatus = MutableLiveData<MFinService.MovieApiNetworkStatus>()
@@ -34,5 +36,17 @@ class MovieDetailsViewModel(val movieDataRepository: MovieDataRepository) : View
         } catch (e: Exception) {
             _networkStatus.value = MFinService.MovieApiNetworkStatus.ERROR
         }
+    }
+
+    fun getMovieForIdFromDb(id: Int) : Movie? {
+        return movieDataRepository.getMovieForIdFromDb(id)
+    }
+
+    fun saveMovieToDb(movie: Movie){
+        movieDataRepository.saveMovieToDb(movie)
+    }
+
+    fun deleteMovieFromDb(movie: Movie){
+        movieDataRepository.deleteMovieFromDb(movie.id)
     }
 }

@@ -49,4 +49,12 @@
         android:name="com.kalann.moviefinder.ui.search.SearchResultsActivity"
         android:label="activity_search_results"
         tools:layout="@layout/activity_search_results" />
+    <fragment
+        android:id="@+id/favouritesFragment"
+        android:name="com.kalann.moviefinder.ui.favourites.FavouritesFragment"
+        android:label="FavouritesFragment" >
+        <action
+            android:id="@+id/action_favouritesFragment_to_movieDetailsFragment"
+            app:destination="@id/movieDetailsFragment" />
+    </fragment>
 </navigation>

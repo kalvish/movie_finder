@@ -13,4 +13,9 @@ class MoviesViewModelLifecycle(val movieDataRepository: MovieDataRepository
                                , feedType: MFinService.PageTypes) : ViewModel() {
     val pagingDataFlow: Flow<PagingData<Movie>> = movieDataRepository.getFeedResultStream(feedType)
     .cachedIn(viewModelScope)
+
+    val pagingDataFlowDb: Flow<PagingData<Movie>> = movieDataRepository.getDbFeedResultStream()
+        .cachedIn(viewModelScope)
+
+    fun getMoviesAllFlow() = movieDataRepository.getMoviesAllFlow()
 }

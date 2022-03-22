@@ -18,7 +18,18 @@
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
 
-
+    <ImageView
+        android:id="@+id/imageViewFavourite"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
+        android:layout_margin="16dp"
+        app:layout_constraintEnd_toEndOf="@+id/imageViewMovieDetailImage"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewMovieDetailImage"
+        android:src="@drawable/outline_favorite_border_24"
+        android:visibility="gone"
+        />
     <TextView
         android:id="@+id/textViewType"
         android:layout_width="wrap_content"

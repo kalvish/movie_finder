@@ -18,7 +18,7 @@ class MovieSearchPagingSource (
     }
 
     override suspend fun load(params: LoadParams<Int>): LoadResult<Int, Movie> {
-        val position = params.key ?: MFinService.Instance.MOVIEDB_STARTING_PAGE_INDEX
+        val position = params.key ?: MFinService.Instance.MOVIEAPI_STARTING_PAGE_INDEX
         val apiQuery = query
         return try {
             val response = movieManager.searchMovies(apiQuery, position)
@@ -30,7 +30,7 @@ class MovieSearchPagingSource (
             }
             LoadResult.Page(
                 data = movies,
-                prevKey = if (position == MFinService.Instance.MOVIEDB_STARTING_PAGE_INDEX) null else position - 1,
+                prevKey = if (position == MFinService.Instance.MOVIEAPI_STARTING_PAGE_INDEX) null else position - 1,
                 nextKey = nextKey
             )
         }catch (exception: IOException) {

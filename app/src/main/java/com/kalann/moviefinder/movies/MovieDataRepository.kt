@@ -33,7 +33,23 @@ class MovieDataRepository @Inject constructor(val movieManager: MovieManager) {
         ).flow
     }
 
+    fun getDbFeedResultStream(): Flow<PagingData<Movie>> {
+        Log.d("MovieDataRepository", "getDbFeedResultStream")
+        return Pager(
+            config = PagingConfig(pageSize = NETWORK_PAGE_SIZE, enablePlaceholders = false),
+            pagingSourceFactory = { MovieDbFeedPagingSource(movieManager) }
+        ).flow
+    }
+
     companion object {
         const val NETWORK_PAGE_SIZE = 30
     }
+
+    fun saveMovieToDb(movie: Movie) = movieManager.saveMovieToDb(movie)
+
+    fun getMovieForIdFromDb(id: Int) = movieManager.getMovieForIdFromDb(id)
+
+    fun deleteMovieFromDb(id: Int) = movieManager.deleteMovieFromDb(id)
+
+    fun getMoviesAllFlow() = movieManager.getMoviesAllFlow()
 }
