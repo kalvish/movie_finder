@@ -18,4 +18,6 @@ class MoviesViewModelLifecycle(val movieDataRepository: MovieDataRepository
         .cachedIn(viewModelScope)
 
     fun getMoviesAllFlow() = movieDataRepository.getMoviesAllFlow()
+
+    suspend fun apiToDbGenres() = movieDataRepository.apiToDbGenres()
 }

@@ -10,6 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import com.kalann.moviefinder.MoviesActivity
 import com.kalann.moviefinder.R
 import com.kalann.moviefinder.api.MFinService
@@ -67,6 +68,8 @@ class FavouritesFragment : Fragment() {
                 view.findNavController().navigate(R.id.action_favouritesFragment_to_movieDetailsFragment, bundle)
             }
         })
+        val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        fragmentFavouritesBinding.recyclerViewMovies.addItemDecoration(decoration)
         fragmentFavouritesBinding.recyclerViewMovies.adapter = adapterMovies
         lifecycleScope.launch {
 //            popularViewModel.pagingDataFlowDb.collect {

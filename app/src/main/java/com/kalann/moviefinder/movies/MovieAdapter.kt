@@ -12,7 +12,7 @@ class MovieAdapter(val onMovieClickListener: OnMovieClickListener) : PagingDataA
     }
 
     override fun onBindViewHolder(holder: MovieViewHolder, position: Int) {
-        val movieItem = getItem(position)
+        val movieItem = getItem(holder.bindingAdapterPosition)
         if (movieItem != null) {
             holder.bind(movieItem)
         }

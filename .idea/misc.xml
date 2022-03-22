@@ -3,6 +3,8 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/drawable/loading_img.xml" value="0.2955" />
+        <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/font/roboto_bold.xml" value="0.21822916666666667" />
         <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/activity_main.xml" value="0.36666666666666664" />
         <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/activity_movies.xml" value="0.1" />
         <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/activity_search_results.xml" value="0.36666666666666664" />
@@ -12,7 +14,7 @@
         <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/fragment_popular.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/fragment_top_rated.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/fragment_upcoming.xml" value="0.18802083333333333" />
-        <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/now_playing_list_item.xml" value="0.18802083333333333" />
+        <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/layout/now_playing_list_item.xml" value="0.5" />
         <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/menu/bottom_nav_menu.xml" value="0.18802083333333333" />
         <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/menu/main_menu.xml" value="0.15520833333333334" />
         <entry key="..\:/Users/vishwan/work/kotlin/projects/moviefinder/app/src/main/res/xml/searchable.xml" value="0.15520833333333334" />

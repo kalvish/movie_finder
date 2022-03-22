@@ -11,6 +11,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.RecyclerView
 import com.kalann.moviefinder.MFinApplication
 import com.kalann.moviefinder.MoviesActivity
@@ -25,8 +26,10 @@ import com.kalann.moviefinder.movies.MovieDataRepository
 import com.kalann.moviefinder.movies.MoviesViewModel
 import com.kalann.moviefinder.ui.MoviesViewModelLifecycle
 import com.kalann.moviefinder.ui.MoviesViewModelLifecycleFactory
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class NowPlayingFragment: Fragment() {
@@ -66,8 +69,13 @@ class NowPlayingFragment: Fragment() {
                 view.findNavController().navigate(R.id.action_navigation_now_playing_to_movieDetailsFragment, bundle)
             }
         })
+        val decoration = DividerItemDecoration(context, DividerItemDecoration.VERTICAL)
+        fragmentNowPlayingBinding.recyclerViewMovies.addItemDecoration(decoration)
         fragmentNowPlayingBinding.recyclerViewMovies.adapter = movieAdapter
         lifecycleScope.launch {
+            withContext(Dispatchers.IO) {
+                popularViewModel.apiToDbGenres()
+            }
             popularViewModel.pagingDataFlow.collectLatest(movieAdapter::submitData)
         }
 

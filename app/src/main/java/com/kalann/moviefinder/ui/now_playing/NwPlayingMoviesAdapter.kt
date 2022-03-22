@@ -8,9 +8,11 @@ import androidx.core.net.toUri
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import coil.load
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.kalann.moviefinder.R
+import com.kalann.moviefinder.api.MFinService
 import com.kalann.moviefinder.api.moshi.Movie
 
 class NwPlayingMoviesAdapter (val onMovieClickListener: OnMovieClickListener) : ListAdapter<Movie, NwPlayingMoviesAdapter.MovieViewHolder>(MoviesDiffUtil()) {
@@ -45,15 +47,20 @@ class NwPlayingMoviesAdapter (val onMovieClickListener: OnMovieClickListener) : 
 //        }else{
 //            holder.imageViewMovieType.visibility = View.GONE
 //        }
-        val stringUrl = "https://image.tmdb.org/t/p/original/" + getItem(position).backdropPath
+        val stringUrl = MFinService.Instance.IMAGE_BASE_URL_W500 + getItem(position).backdropPath
         val uri = stringUrl.toUri().buildUpon().scheme("https").build()
-        Glide.with(holder.itemView.context)
-            .load(uri)
-            .apply(
-                RequestOptions()
-                .placeholder(R.drawable.loading_animation)
-                .error(R.drawable.ic_broken_image))
-            .into(holder.imageViewMovie)
+        holder.imageViewMovie.load(stringUrl) {
+            crossfade(true)
+            placeholder(R.drawable.loading_animation)
+            error(R.drawable.ic_broken_image)
+        }
+//        Glide.with(holder.itemView.context)
+//            .load(uri)
+//            .apply(
+//                RequestOptions()
+//                .placeholder(R.drawable.loading_animation)
+//                .error(R.drawable.ic_broken_image))
+//            .into(holder.imageViewMovie)
         holder.itemView.setOnClickListener {
             onMovieClickListener.onClickListItem(getItem(position))
         }

@@ -25,31 +25,41 @@
         android:adjustViewBounds="true"
         android:scaleType="fitXY"
         android:layout_margin="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/imageViewMovieDetailImage"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewMovieDetailImage"
+        app:layout_constraintEnd_toEndOf="@+id/hScrollViewChips"
+        app:layout_constraintTop_toBottomOf="@+id/hScrollViewChips"
         android:src="@drawable/outline_favorite_border_24"
         android:visibility="gone"
         />
+
+    <HorizontalScrollView
+        android:id="@+id/hScrollViewChips"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="none"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:layout_marginStart="8dp"
+        app:layout_constraintStart_toStartOf="@id/imageViewMovieDetailImage"
+        app:layout_constraintTop_toBottomOf="@id/imageViewMovieDetailImage">
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroupGenres"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            app:singleLine="true"
+            />
+    </HorizontalScrollView>
+
     <TextView
-        android:id="@+id/textViewType"
+        android:id="@+id/textViewMovieName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:layout_marginStart="16dp"
         android:text=""
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewMovieDetailImage"
+        app:layout_constraintTop_toBottomOf="@+id/imageViewFavourite"
         tools:text="Type"/>
-
-    <TextView
-        android:id="@+id/textViewValue"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text=""
-        app:layout_constraintStart_toStartOf="@id/textViewType"
-        app:layout_constraintTop_toBottomOf="@+id/textViewType"
-        tools:text="Value"/>
 
     <ImageView
         android:id="@+id/imageview_network_status"

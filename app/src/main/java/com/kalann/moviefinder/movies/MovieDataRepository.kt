@@ -54,4 +54,6 @@ class MovieDataRepository @Inject constructor(val movieManager: MovieManager) {
     fun deleteMovieFromDb(id: Int) = movieManager.deleteMovieFromDb(id)
 
     fun getMoviesAllFlow() = movieManager.getMoviesAllFlow()
+
+    suspend fun apiToDbGenres() = movieManager.apiToDbGenres()
 }

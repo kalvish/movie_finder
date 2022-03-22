@@ -1,18 +1,23 @@
 package com.kalann.moviefinder.ui.movie_details
 
 import android.content.Context
+import android.content.res.ColorStateList
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
+import androidx.core.widget.ImageViewCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
+import coil.load
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.google.android.material.chip.Chip
 import com.kalann.moviefinder.MoviesActivity
 import com.kalann.moviefinder.R
 import com.kalann.moviefinder.api.MFinService
@@ -72,7 +77,7 @@ class MovieDetailsFragment : Fragment() {
         var movieLoaded : Movie? = null
         movieDetailsViewModel.getMovie(movieId).observe(viewLifecycleOwner) { movie ->
             movieLoaded = movie
-            bind(movie, fragmentMovieDetailBinding.imageViewMovieDetailImage)
+            bind(movie, fragmentMovieDetailBinding)
             //If movie loaded successfully, user will get the ability to click
             //favourite icon
             fragmentMovieDetailBinding.imageViewFavourite.visibility = View.VISIBLE
@@ -90,11 +95,15 @@ class MovieDetailsFragment : Fragment() {
                         movieDetailsViewModel.saveMovieToDb(movieLoaded!!)
                     }
                     fragmentMovieDetailBinding.imageViewFavourite.setImageResource(R.drawable.outline_favorite_24)
+                    ImageViewCompat.setImageTintList(fragmentMovieDetailBinding.imageViewFavourite,
+                        ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.holo_orange_light)))
                 } else {
                     withContext(Dispatchers.IO) {
                         movieDetailsViewModel.deleteMovieFromDb(movieFromDb!!)
                     }
                     fragmentMovieDetailBinding.imageViewFavourite.setImageResource(R.drawable.outline_favorite_border_24)
+                    ImageViewCompat.setImageTintList(fragmentMovieDetailBinding.imageViewFavourite,
+                        ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.holo_orange_light)))
                 }
 //                    }
             }
@@ -107,25 +116,45 @@ class MovieDetailsFragment : Fragment() {
             }
             if (movieFromDb == null) {
                 fragmentMovieDetailBinding.imageViewFavourite.setImageResource(R.drawable.outline_favorite_border_24)
+                ImageViewCompat.setImageTintList(fragmentMovieDetailBinding.imageViewFavourite,
+                ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.holo_orange_light)))
+
             }else{
                 fragmentMovieDetailBinding.imageViewFavourite.setImageResource(R.drawable.outline_favorite_24)
+                ImageViewCompat.setImageTintList(fragmentMovieDetailBinding.imageViewFavourite,
+                    ColorStateList.valueOf(ContextCompat.getColor(requireContext(), R.color.holo_orange_light)))
             }
         }
     }
 
-    private fun bind(movie: Movie?, imageViewMovie: ImageView) {
+    private fun bind(movie: Movie?, fragmentMovieDetailBindingTemp: FragmentMovieDetailBinding) {
         if (movie?.backdropPath == null) {
-            imageViewMovie.setImageDrawable(ResourcesCompat.getDrawable(requireActivity().resources, R.drawable.ic_broken_image, null))
+            fragmentMovieDetailBindingTemp.imageViewMovieDetailImage
+                .setImageDrawable(ResourcesCompat.getDrawable(requireActivity().resources, R.drawable.ic_broken_image, null))
         } else {
-            val stringUrl = MFinService.Instance.IMAGE_BASE_URL + movie.backdropPath
+            val stringUrl = MFinService.Instance.IMAGE_BASE_URL_W500 + movie.backdropPath
             val uri = stringUrl.toUri().buildUpon().scheme("https").build()
-            Glide.with(requireActivity())
-                .load(uri)
-                .apply(
-                    RequestOptions()
-                        .placeholder(R.drawable.loading_animation)
-                        .error(R.drawable.ic_broken_image))
-                .into(imageViewMovie)
+            fragmentMovieDetailBindingTemp.imageViewMovieDetailImage.load(stringUrl) {
+                crossfade(true)
+                placeholder(R.drawable.loading_animation)
+                error(R.drawable.ic_broken_image)
+            }
+//            Glide.with(requireActivity())
+//                .load(uri)
+//                .apply(
+//                    RequestOptions()
+//                        .placeholder(R.drawable.loading_animation)
+//                        .error(R.drawable.ic_broken_image))
+//                .into(fragmentMovieDetailBindingTemp.imageViewMovieDetailImage)
+
+            fragmentMovieDetailBindingTemp.textViewMovieName.text = movie?.originalTitle
+
+            fragmentMovieDetailBindingTemp.chipGroupGenres.removeAllViews()
+            movie?.genres?.forEach {
+                val chip = Chip(requireActivity())
+                chip.text = it.name
+                fragmentMovieDetailBindingTemp.chipGroupGenres.addView(chip)
+            }
         }
     }
 }

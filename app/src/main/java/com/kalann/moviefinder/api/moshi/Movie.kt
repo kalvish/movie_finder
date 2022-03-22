@@ -1,6 +1,7 @@
 package com.kalann.moviefinder.api.moshi
 
 import androidx.room.Entity
+import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import com.squareup.moshi.Json
 
@@ -80,5 +81,20 @@ data class Movie (
     var voteAverage: Double? = null,
 
     @Json(name = "vote_count")
-    var voteCount: Int? = null
-)
+    var voteCount: Int? = null,
+
+    @Ignore
+    @Json(name = "genre_ids")
+    val genre_ids: List<Int>? = null
+) {
+    constructor(adult: Boolean?,backdropPath: String?,belongsToCollection: String?
+                ,budget: Int?,genres: List<Genre>?,homepage: String?
+                ,id: Int,imdbId: String?,originalLanguage: String?
+                ,originalTitle: String?,overview: String?,popularity: Double?
+                ,posterPath: String?,productionCompanies: List<ProductionCompany>?
+                ,productionCountries: List<ProductionCountry>?,releaseDate: String?
+                ,revenue: Int?,runtime: Int?,spokenLanguages: List<SpokenLanguage>?
+                ,status: String?,tagline: String?,title: String?
+                ,video: Boolean?,voteAverage: Double?,voteCount: Int?
+                ) : this(adult, backdropPath, belongsToCollection, budget, genres, homepage, id, imdbId, originalLanguage, originalTitle, overview, popularity, posterPath, productionCompanies, productionCountries, releaseDate, revenue, runtime, spokenLanguages, status, tagline, title, video, voteAverage, voteCount, emptyList<Int>())
+}
