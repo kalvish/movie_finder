@@ -1,5 +1,6 @@
 package com.kalann.moviefinder.api
 
+import com.kalann.moviefinder.api.moshi.Genres
 import com.kalann.moviefinder.api.moshi.Movie
 import com.kalann.moviefinder.api.moshi.Movies
 import retrofit2.http.GET
@@ -39,4 +40,7 @@ interface MFinService {
     suspend fun searchMovies(@Query("query") query: String,
                              @Query("page") page : Int,
                              @Query("api_key") apiKey : String): Movies
+
+    @GET("3/genre/movie/list")
+    suspend fun getGenreListFromApi(@Query("api_key") apiKey : String): Genres
 }

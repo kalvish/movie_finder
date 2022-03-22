@@ -3,6 +3,7 @@ package com.kalann.moviefinder.dagger
 import android.content.Context
 import androidx.room.Room
 import com.kalann.moviefinder.db.MovieDatabase
+import com.kalann.moviefinder.db.MovieDatabaseMigrations
 import com.kalann.moviefinder.db.daos.MovieDao
 import dagger.Module
 import dagger.Provides
@@ -16,7 +17,7 @@ class StorageModule {
             app,
             MovieDatabase::class.java,
             "moviedb.db"
-        ).fallbackToDestructiveMigration().build()
+        ).addMigrations(MovieDatabaseMigrations.MIGRATION_1_2).build()
     }
 
     @ApplicationScope

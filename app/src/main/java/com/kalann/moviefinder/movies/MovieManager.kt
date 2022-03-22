@@ -17,6 +17,8 @@ class MovieManager @Inject constructor(private val mFinService: MFinService
     suspend fun searchMovies(query: String,
                              page: Int) = mFinService.searchMovies(query,page,MFinService.Instance.API_KEY)
 
+    suspend fun getGenreListFromApi() = mFinService.getGenreListFromApi(MFinService.Instance.API_KEY)
+
     fun saveMovieToDb(movie: Movie) = movieDatabase.movieDao().insert(movie)
 
     fun getMovieForIdFromDb(id: Int) = movieDatabase.movieDao().getMovieForId(id)
