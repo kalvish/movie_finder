@@ -135,9 +135,10 @@ class MovieDetailsFragment : Fragment() {
             fragmentMovieDetailBindingTemp.imageViewMovieDetailImage
                 .setImageDrawable(ResourcesCompat.getDrawable(requireActivity().resources, R.drawable.ic_broken_image, null))
         } else {
-            val stringUrl = MFinService.Instance.IMAGE_BASE_URL_W500 + movie.backdropPath
-            val uri = stringUrl.toUri().buildUpon().scheme("https").build()
-            fragmentMovieDetailBindingTemp.imageViewMovieDetailImage.load(stringUrl) {
+            val stringUrlBackdrop = MFinService.Instance.IMAGE_BASE_URL_W500 + movie.backdropPath
+            val stringUrlPoster = MFinService.Instance.IMAGE_BASE_URL_W500 + movie.posterPath
+            val uri = stringUrlBackdrop.toUri().buildUpon().scheme("https").build()
+            fragmentMovieDetailBindingTemp.imageViewMovieDetailImage.load(stringUrlBackdrop) {
                 crossfade(true)
                 placeholder(R.drawable.loading_animation)
                 error(R.drawable.ic_broken_image)
@@ -150,16 +151,19 @@ class MovieDetailsFragment : Fragment() {
 //                        .error(R.drawable.ic_broken_image))
 //                .into(fragmentMovieDetailBindingTemp.imageViewMovieDetailImage)
 
-            fragmentMovieDetailBindingTemp.textViewMovieName.text = movie?.originalTitle
+            val imgs = listOf(stringUrlPoster, stringUrlBackdrop)
+            val adapter = MoviePagerAdapter(imgs,requireActivity())
+            fragmentMovieDetailBindingTemp.pager.adapter = adapter
+            fragmentMovieDetailBindingTemp.textViewMovieName.text = movie.originalTitle
 
             fragmentMovieDetailBindingTemp.chipGroupGenres.removeAllViews()
-            movie?.genres?.forEach {
+            movie.genres?.forEach {
                 val chip = Chip(requireActivity())
                 chip.text = it.name
                 fragmentMovieDetailBindingTemp.chipGroupGenres.addView(chip)
             }
 
-            movie?.voteAverage?.let {
+            movie.voteAverage?.let {
                 fragmentMovieDetailBindingTemp.chipVoteDetails.visibility = View.VISIBLE
                 fragmentMovieDetailBindingTemp.chipVoteDetails.text = resources.getString(R.string.vote_details,
                     movie!!.voteAverage, movie!!.voteCount)
@@ -168,7 +172,7 @@ class MovieDetailsFragment : Fragment() {
                         ContextCompat.getColor(requireContext(), android.R.color.holo_orange_light))
             }
 
-            movie?.releaseDate?.let {
+            movie.releaseDate?.let {
                 val formatFrom = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
                 val formatTo = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
                 try {
