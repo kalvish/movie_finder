@@ -30,7 +30,31 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:fontFamily="@font/roboto_medium"
+            android:textSize="16sp"
+            android:textStyle="bold"
             app:layout_constraintStart_toStartOf="@id/imageViewMovie"
+            app:layout_constraintTop_toBottomOf="@id/imageViewMovie" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewMovieReleaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@id/imageViewMovie"
+            app:layout_constraintTop_toBottomOf="@id/textViewMovieName" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipVoteDetails"
+            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/vote_details"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@id/imageViewMovie"
             app:layout_constraintTop_toBottomOf="@id/imageViewMovie" />
         <HorizontalScrollView
             android:layout_width="match_parent"
@@ -40,7 +64,7 @@
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
             app:layout_constraintStart_toStartOf="@id/imageViewMovie"
-            app:layout_constraintTop_toBottomOf="@id/textViewMovieName">
+            app:layout_constraintTop_toBottomOf="@id/chipVoteDetails">
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupGenres"
             android:layout_width="wrap_content"

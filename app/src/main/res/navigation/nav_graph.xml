@@ -43,7 +43,7 @@
     <fragment
         android:id="@+id/movieDetailsFragment"
         android:name="com.kalann.moviefinder.ui.movie_details.MovieDetailsFragment"
-        android:label="MovieDetailsFragment" />
+        android:label="@string/title_movie_details" />
     <activity
         android:id="@+id/searchResultsActivity"
         android:name="com.kalann.moviefinder.ui.search.SearchResultsActivity"

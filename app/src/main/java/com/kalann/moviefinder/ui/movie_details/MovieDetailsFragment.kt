@@ -3,10 +3,11 @@ package com.kalann.moviefinder.ui.movie_details
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
@@ -15,8 +16,6 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.lifecycleScope
 import coil.load
-import com.bumptech.glide.Glide
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.material.chip.Chip
 import com.kalann.moviefinder.MoviesActivity
 import com.kalann.moviefinder.R
@@ -28,7 +27,10 @@ import com.kalann.moviefinder.movies.MovieDataRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.text.SimpleDateFormat
+import java.util.*
 import javax.inject.Inject
+
 
 class MovieDetailsFragment : Fragment() {
     lateinit var fragmentMovieDetailBinding: FragmentMovieDetailBinding
@@ -76,6 +78,7 @@ class MovieDetailsFragment : Fragment() {
         val movieId = arguments?.get(MovieConstants.MOVIE_ID) as Int
         var movieLoaded : Movie? = null
         movieDetailsViewModel.getMovie(movieId).observe(viewLifecycleOwner) { movie ->
+            (activity as AppCompatActivity?)!!.supportActionBar!!.title = movie?.originalTitle
             movieLoaded = movie
             bind(movie, fragmentMovieDetailBinding)
             //If movie loaded successfully, user will get the ability to click
@@ -154,6 +157,41 @@ class MovieDetailsFragment : Fragment() {
                 val chip = Chip(requireActivity())
                 chip.text = it.name
                 fragmentMovieDetailBindingTemp.chipGroupGenres.addView(chip)
+            }
+
+            movie?.voteAverage?.let {
+                fragmentMovieDetailBindingTemp.chipVoteDetails.visibility = View.VISIBLE
+                fragmentMovieDetailBindingTemp.chipVoteDetails.text = resources.getString(R.string.vote_details,
+                    movie!!.voteAverage, movie!!.voteCount)
+                fragmentMovieDetailBindingTemp.chipVoteDetails.chipBackgroundColor =
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(requireContext(), android.R.color.holo_orange_light))
+            }
+
+            movie?.releaseDate?.let {
+                val formatFrom = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val formatTo = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                try {
+                    val stringDate = formatFrom.parse(it)
+                    stringDate?.let {
+                        val stringDateOutput = formatTo.format(it)
+                        fragmentMovieDetailBindingTemp.textViewMovieReleaseDate.text = stringDateOutput
+                    }
+                } catch (e: Exception) {
+                    Log.d("MovieViewHolder: " , "Release date: " + e.message)
+                }
+            }
+
+            movie.overview.let {
+                fragmentMovieDetailBindingTemp.textViewMovieDetails.text = it
+            }
+
+            movie.status.let {
+                fragmentMovieDetailBindingTemp.textViewMovieReleaseStatus.text = it
+            }
+
+            movie.tagline.let {
+                fragmentMovieDetailBindingTemp.textViewMovieReleaseTagline.text = it
             }
         }
     }

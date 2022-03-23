@@ -1,74 +1,157 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<androidx.coordinatorlayout.widget.CoordinatorLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <ImageView
-        android:id="@+id/imageViewMovieDetailImage"
-        android:layout_width="0dp"
-        android:layout_height="200dp"
-        android:adjustViewBounds="true"
-        android:layout_margin="16dp"
-        android:scaleType="fitXY"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/backgrounds/scenic" />
-
-    <ImageView
-        android:id="@+id/imageViewFavourite"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:adjustViewBounds="true"
-        android:scaleType="fitXY"
-        android:layout_margin="16dp"
-        app:layout_constraintEnd_toEndOf="@+id/hScrollViewChips"
-        app:layout_constraintTop_toBottomOf="@+id/hScrollViewChips"
-        android:src="@drawable/outline_favorite_border_24"
-        android:visibility="gone"
-        />
-
-    <HorizontalScrollView
-        android:id="@+id/hScrollViewChips"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    android:layout_marginBottom="?attr/actionBarSize"
+    tools:context=".ui.movie_details.MovieDetailsFragment">
+<androidx.core.widget.NestedScrollView
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:layout_constraintEnd_toEndOf="parent"
+    app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toTopOf="parent">
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:scrollbars="none"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:layout_marginStart="8dp"
-        app:layout_constraintStart_toStartOf="@id/imageViewMovieDetailImage"
-        app:layout_constraintTop_toBottomOf="@id/imageViewMovieDetailImage">
-        <com.google.android.material.chip.ChipGroup
-            android:id="@+id/chipGroupGenres"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:id="@+id/imageViewMovieDetailImage"
+            android:layout_width="0dp"
+            android:layout_height="200dp"
+            android:adjustViewBounds="true"
+            android:layout_margin="8dp"
+            android:scaleType="fitXY"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:srcCompat="@tools:sample/backgrounds/scenic" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipVoteDetails"
+            style="@style/Widget.Material3.Chip.Suggestion.Elevated"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="start"
-            app:singleLine="true"
+            android:fontFamily="@font/roboto_medium"
+            android:text="@string/vote_details"
+            android:visibility="gone"
+            app:layout_constraintStart_toStartOf="@id/imageViewMovieDetailImage"
+            app:layout_constraintTop_toBottomOf="@id/hScrollViewChips"
+            android:layout_marginTop="8dp"/>
+
+        <ImageView
+            android:id="@+id/imageViewFavourite"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:adjustViewBounds="true"
+            android:scaleType="fitXY"
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/hScrollViewChips"
+            app:layout_constraintTop_toBottomOf="@+id/hScrollViewChips"
+            android:src="@drawable/outline_favorite_border_24"
+            android:visibility="gone"
             />
-    </HorizontalScrollView>
 
-    <TextView
-        android:id="@+id/textViewMovieName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginStart="16dp"
-        android:text=""
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageViewFavourite"
-        tools:text="Type"/>
+        <HorizontalScrollView
+            android:id="@+id/hScrollViewChips"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="none"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            app:layout_constraintStart_toStartOf="@id/imageViewMovieDetailImage"
+            app:layout_constraintTop_toBottomOf="@id/imageViewMovieDetailImage">
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroupGenres"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                app:singleLine="true"
+                />
+        </HorizontalScrollView>
 
-    <ImageView
-        android:id="@+id/imageview_network_status"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:visibility="gone"
-        tools:src="@tools:sample/backgrounds/scenic" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        <TextView
+            android:id="@+id/textViewMovieName"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginStart="8dp"
+            android:text=""
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageViewFavourite"
+            tools:text=""/>
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewMovieReleaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@id/textViewMovieName"
+            app:layout_constraintTop_toBottomOf="@id/textViewMovieName" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewMovieReleaseStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@id/textViewMovieName"
+            app:layout_constraintTop_toBottomOf="@id/textViewMovieReleaseDate" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewMovieReleaseTagline"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            app:layout_constraintStart_toStartOf="@id/textViewMovieName"
+            app:layout_constraintTop_toBottomOf="@id/textViewMovieReleaseStatus" />
+
+        <TextView
+            android:id="@+id/textViewMovieDetails"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginStart="8dp"
+            android:text=""
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textViewMovieReleaseTagline"
+            tools:text=""/>
+
+        <ImageView
+            android:id="@+id/imageview_network_status"
+            android:layout_width="100dp"
+            android:layout_height="100dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:visibility="gone"
+            tools:src="@tools:sample/backgrounds/scenic" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/textViewMovieDetails"/>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

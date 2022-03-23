@@ -1,13 +1,17 @@
 package com.kalann.moviefinder.movies
 
 import android.content.Intent
+import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.net.Uri
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.appcompat.widget.AppCompatTextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.res.ResourcesCompat
 import androidx.core.net.toUri
 import androidx.recyclerview.widget.RecyclerView
@@ -25,11 +29,17 @@ import com.google.android.material.chip.ChipGroup
 import com.kalann.moviefinder.R
 import com.kalann.moviefinder.api.MFinService
 import com.kalann.moviefinder.api.moshi.Movie
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.time.LocalDateTime
+import java.util.*
 
 class MovieViewHolder(itemView: View, onMovieClickListener: MovieAdapter.OnMovieClickListener) : RecyclerView.ViewHolder(itemView) {
     val imageViewMovie = itemView.findViewById<ImageView>(R.id.imageViewMovie)
     val textViewMovieName = itemView.findViewById<AppCompatTextView>(R.id.textViewMovieName)
+    val textViewMovieReleaseDate = itemView.findViewById<AppCompatTextView>(R.id.textViewMovieReleaseDate)
     val chipGroupGenres = itemView.findViewById<ChipGroup>(R.id.chipGroupGenres)
+    val chipVoteDetails = itemView.findViewById<Chip>(R.id.chipVoteDetails)
 //        val imageViewMovieType = itemView.findViewById<ImageView>(R.id.imageViewMovieType)
 
     private var movie: Movie? = null
@@ -69,8 +79,34 @@ class MovieViewHolder(itemView: View, onMovieClickListener: MovieAdapter.OnMovie
             chipGroupGenres.removeAllViews()
             movie?.genres?.forEach {
                 val chip = Chip(this.itemView.context)
+                chip.typeface = Typeface.create(
+                    ResourcesCompat.getFont(
+                        this.itemView.context, R.font.roboto_medium), Typeface.NORMAL)
                 chip.text = it.name
                 chipGroupGenres.addView(chip)
+            }
+
+            movie?.voteAverage?.let {
+                chipVoteDetails.visibility = View.VISIBLE
+                chipVoteDetails.text = this.itemView.resources.getString(R.string.vote_details,
+                    movie!!.voteAverage, movie!!.voteCount)
+                chipVoteDetails.chipBackgroundColor =
+                    ColorStateList.valueOf(
+                        ContextCompat.getColor(this.itemView.context, android.R.color.holo_orange_light))
+            }
+
+            movie?.releaseDate?.let {
+                val formatFrom = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+                val formatTo = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+                try {
+                    val stringDate = formatFrom.parse(it)
+                    stringDate?.let {
+                        val stringDateOutput = formatTo.format(it)
+                        textViewMovieReleaseDate.text = stringDateOutput
+                    }
+                } catch (e: Exception) {
+                    Log.d("MovieViewHolder: " , "Release date: " + e.message)
+                }
             }
         }
     }
