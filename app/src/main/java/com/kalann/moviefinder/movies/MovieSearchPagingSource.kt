@@ -23,13 +23,20 @@ class MovieSearchPagingSource (
         return try {
             val response = movieManager.searchMovies(apiQuery, position)
             val movies = response.results
+            val moviesDuplicate = mutableListOf<Movie>()
+            movies?.forEach {
+                var movieTemp = it
+                it.genre_ids?.let { it1 ->
+                    movieTemp.genres = movieManager.getGenresForIds(it1) }
+                moviesDuplicate.add(movieTemp)
+            }
             val nextKey = if(movies!!.isEmpty()){
                 null
             } else {
                 position + 1
             }
             LoadResult.Page(
-                data = movies,
+                data = moviesDuplicate,
                 prevKey = if (position == MFinService.Instance.MOVIEAPI_STARTING_PAGE_INDEX) null else position - 1,
                 nextKey = nextKey
             )

@@ -89,7 +89,7 @@
             tools:text=""/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/textViewMovieReleaseDate"
+            android:id="@+id/textViewMovieSpokenLanguages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
@@ -98,6 +98,17 @@
             android:textStyle="normal"
             app:layout_constraintStart_toStartOf="@id/textViewMovieName"
             app:layout_constraintTop_toBottomOf="@id/textViewMovieName" />
+
+        <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/textViewMovieReleaseDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="4dp"
+            android:fontFamily="@font/roboto_medium"
+            android:textSize="14sp"
+            android:textStyle="normal"
+            app:layout_constraintStart_toStartOf="@id/textViewMovieName"
+            app:layout_constraintTop_toBottomOf="@id/textViewMovieSpokenLanguages" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewMovieReleaseStatus"

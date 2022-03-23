@@ -193,6 +193,17 @@ class MovieDetailsFragment : Fragment() {
             movie.tagline.let {
                 fragmentMovieDetailBindingTemp.textViewMovieReleaseTagline.text = it
             }
+
+            if(movie.spokenLanguages?.size!! > 0){
+                var languageString = ""
+                movie.spokenLanguages!!.forEach {
+                    languageString += it.englishName + ", "
+                }
+                if(languageString.isNotEmpty()) {
+                    fragmentMovieDetailBindingTemp.textViewMovieSpokenLanguages.text =
+                        languageString.trimEnd().dropLast(1)
+                }
+            }
         }
     }
 }
