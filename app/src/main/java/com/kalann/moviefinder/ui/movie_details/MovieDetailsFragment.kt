@@ -153,6 +153,7 @@ class MovieDetailsFragment : Fragment() {
 
             val imgs = listOf(stringUrlPoster, stringUrlBackdrop)
             val adapter = MoviePagerAdapter(imgs,requireActivity())
+            fragmentMovieDetailBindingTemp.pager.visibility = View.VISIBLE
             fragmentMovieDetailBindingTemp.pager.adapter = adapter
             fragmentMovieDetailBindingTemp.textViewMovieName.text = movie.originalTitle
 

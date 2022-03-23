@@ -14,12 +14,11 @@
 
     <ImageView
         android:id="@+id/imageViewMovie"
-        android:layout_width="match_parent"
+        android:layout_width="140dp"
         android:layout_height="200dp"
         android:adjustViewBounds="true"
-        android:scaleType="fitXY"
+        android:scaleType="centerInside"
         android:layout_margin="8dp"
-        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         tools:srcCompat="@tools:sample/backgrounds/scenic" />
@@ -29,11 +28,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
+            android:layout_marginStart="8dp"
             android:fontFamily="@font/roboto_medium"
             android:textSize="16sp"
             android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@id/imageViewMovie"
-            app:layout_constraintTop_toBottomOf="@id/imageViewMovie" />
+            android:ellipsize="marquee"
+            app:layout_constraintStart_toEndOf="@id/imageViewMovie"
+            app:layout_constraintTop_toTopOf="@id/imageViewMovie" />
 
         <androidx.appcompat.widget.AppCompatTextView
             android:id="@+id/textViewMovieReleaseDate"
@@ -43,7 +44,7 @@
             android:fontFamily="@font/roboto_medium"
             android:textSize="14sp"
             android:textStyle="normal"
-            app:layout_constraintStart_toStartOf="@id/imageViewMovie"
+            app:layout_constraintStart_toStartOf="@id/textViewMovieName"
             app:layout_constraintTop_toBottomOf="@id/textViewMovieName" />
 
         <com.google.android.material.chip.Chip
@@ -54,8 +55,8 @@
             android:fontFamily="@font/roboto_medium"
             android:text="@string/vote_details"
             android:visibility="gone"
-            app:layout_constraintEnd_toEndOf="@id/imageViewMovie"
-            app:layout_constraintTop_toBottomOf="@id/imageViewMovie" />
+            app:layout_constraintStart_toStartOf="@id/textViewMovieName"
+            app:layout_constraintTop_toBottomOf="@id/textViewMovieReleaseDate" />
         <HorizontalScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -63,8 +64,9 @@
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
             app:layout_constraintStart_toStartOf="@id/imageViewMovie"
-            app:layout_constraintTop_toBottomOf="@id/chipVoteDetails">
+            app:layout_constraintTop_toBottomOf="@id/imageViewMovie">
         <com.google.android.material.chip.ChipGroup
             android:id="@+id/chipGroupGenres"
             android:layout_width="wrap_content"

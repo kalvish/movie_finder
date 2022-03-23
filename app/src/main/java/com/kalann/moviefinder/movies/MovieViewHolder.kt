@@ -61,7 +61,7 @@ class MovieViewHolder(itemView: View, onMovieClickListener: MovieAdapter.OnMovie
 
             val uri = stringUrl.toUri().buildUpon().scheme("https").build()
             val uriPoster = stringUrlPosterPath.toUri().buildUpon().scheme("https").build()
-            imageViewMovie.load(stringUrl) {
+            imageViewMovie.load(uriPoster) {
                 crossfade(true)
                 placeholder(R.drawable.loading_animation)
                 error(R.drawable.ic_broken_image)

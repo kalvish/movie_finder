@@ -63,8 +63,9 @@ class NwPlayingMoviesAdapter (val onMovieClickListener: OnMovieClickListener) : 
 //        }
         val movieToShow = getItem(position)
         val stringUrl = MFinService.Instance.IMAGE_BASE_URL_W500 + getItem(position).backdropPath
+        val stringUrlPosterPath = MFinService.Instance.IMAGE_BASE_URL_W500 + getItem(position).posterPath
         val uri = stringUrl.toUri().buildUpon().scheme("https").build()
-        holder.imageViewMovie.load(stringUrl) {
+        holder.imageViewMovie.load(stringUrlPosterPath) {
             crossfade(true)
             placeholder(R.drawable.loading_animation)
             error(R.drawable.ic_broken_image)
