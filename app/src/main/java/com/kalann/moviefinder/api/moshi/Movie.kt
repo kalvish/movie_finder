@@ -14,7 +14,7 @@ data class Movie (
     var backdropPath: String? = null,
 
     @Json(name = "belongs_to_collection")
-    var belongsToCollection: String? = null,
+    var belongsToCollection: BelongsToCollection? = null,
 
     @Json(name = "budget")
     var budget: Int? = null,
@@ -87,7 +87,7 @@ data class Movie (
     @Json(name = "genre_ids")
     val genre_ids: List<Int>? = null
 ) {
-    constructor(adult: Boolean?,backdropPath: String?,belongsToCollection: String?
+    constructor(adult: Boolean?,backdropPath: String?,belongsToCollection: BelongsToCollection?
                 ,budget: Int?,genres: List<Genre>?,homepage: String?
                 ,id: Int,imdbId: String?,originalLanguage: String?
                 ,originalTitle: String?,overview: String?,popularity: Double?

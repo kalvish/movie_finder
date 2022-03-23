@@ -131,16 +131,19 @@ class MovieDetailsFragment : Fragment() {
     }
 
     private fun bind(movie: Movie?, fragmentMovieDetailBindingTemp: FragmentMovieDetailBinding) {
-        if (movie?.backdropPath == null) {
+        if (movie?.backdropPath == null || movie.posterPath == null) {
             fragmentMovieDetailBindingTemp.imageViewMovieDetailImage
                 .setImageDrawable(ResourcesCompat.getDrawable(requireActivity().resources, R.drawable.ic_broken_image, null))
         } else {
-            val stringUrlBackdrop = MFinService.Instance.IMAGE_BASE_URL_W500 + movie.backdropPath
+            var stringUrlBackdrop = MFinService.Instance.IMAGE_BASE_URL_W500 + movie.backdropPath
+            if(movie.backdropPath==null){
+                stringUrlBackdrop = MFinService.Instance.IMAGE_BASE_URL_W500 + movie.posterPath
+            }
             val stringUrlPoster = MFinService.Instance.IMAGE_BASE_URL_W500 + movie.posterPath
             val uri = stringUrlBackdrop.toUri().buildUpon().scheme("https").build()
             fragmentMovieDetailBindingTemp.imageViewMovieDetailImage.load(stringUrlBackdrop) {
                 crossfade(true)
-                placeholder(R.drawable.loading_animation)
+//                placeholder(R.drawable.loading_animation)
                 error(R.drawable.ic_broken_image)
             }
 //            Glide.with(requireActivity())
@@ -156,58 +159,57 @@ class MovieDetailsFragment : Fragment() {
             fragmentMovieDetailBindingTemp.pager.visibility = View.VISIBLE
             fragmentMovieDetailBindingTemp.pager.adapter = adapter
             fragmentMovieDetailBindingTemp.textViewMovieName.text = movie.originalTitle
+        }
+        fragmentMovieDetailBindingTemp.chipGroupGenres.removeAllViews()
+        movie?.genres?.forEach {
+            val chip = Chip(requireActivity())
+            chip.text = it.name
+            fragmentMovieDetailBindingTemp.chipGroupGenres.addView(chip)
+        }
 
-            fragmentMovieDetailBindingTemp.chipGroupGenres.removeAllViews()
-            movie.genres?.forEach {
-                val chip = Chip(requireActivity())
-                chip.text = it.name
-                fragmentMovieDetailBindingTemp.chipGroupGenres.addView(chip)
-            }
+        movie?.voteAverage?.let {
+            fragmentMovieDetailBindingTemp.chipVoteDetails.visibility = View.VISIBLE
+            fragmentMovieDetailBindingTemp.chipVoteDetails.text = resources.getString(R.string.vote_details,
+                movie!!.voteAverage, movie!!.voteCount)
+            fragmentMovieDetailBindingTemp.chipVoteDetails.chipBackgroundColor =
+                ColorStateList.valueOf(
+                    ContextCompat.getColor(requireContext(), android.R.color.holo_orange_light))
+        }
 
-            movie.voteAverage?.let {
-                fragmentMovieDetailBindingTemp.chipVoteDetails.visibility = View.VISIBLE
-                fragmentMovieDetailBindingTemp.chipVoteDetails.text = resources.getString(R.string.vote_details,
-                    movie!!.voteAverage, movie!!.voteCount)
-                fragmentMovieDetailBindingTemp.chipVoteDetails.chipBackgroundColor =
-                    ColorStateList.valueOf(
-                        ContextCompat.getColor(requireContext(), android.R.color.holo_orange_light))
-            }
-
-            movie.releaseDate?.let {
-                val formatFrom = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-                val formatTo = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
-                try {
-                    val stringDate = formatFrom.parse(it)
-                    stringDate?.let {
-                        val stringDateOutput = formatTo.format(it)
-                        fragmentMovieDetailBindingTemp.textViewMovieReleaseDate.text = stringDateOutput
-                    }
-                } catch (e: Exception) {
-                    Log.d("MovieViewHolder: " , "Release date: " + e.message)
+        movie?.releaseDate?.let {
+            val formatFrom = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+            val formatTo = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            try {
+                val stringDate = formatFrom.parse(it)
+                stringDate?.let {
+                    val stringDateOutput = formatTo.format(it)
+                    fragmentMovieDetailBindingTemp.textViewMovieReleaseDate.text = stringDateOutput
                 }
+            } catch (e: Exception) {
+                Log.d("MovieViewHolder: " , "Release date: " + e.message)
             }
+        }
 
-            movie.overview.let {
-                fragmentMovieDetailBindingTemp.textViewMovieDetails.text = it
+        movie?.overview.let {
+            fragmentMovieDetailBindingTemp.textViewMovieDetails.text = it
+        }
+
+        movie?.status.let {
+            fragmentMovieDetailBindingTemp.textViewMovieReleaseStatus.text = it
+        }
+
+        movie?.tagline.let {
+            fragmentMovieDetailBindingTemp.textViewMovieReleaseTagline.text = it
+        }
+
+        if(movie?.spokenLanguages?.size!! > 0){
+            var languageString = ""
+            movie.spokenLanguages!!.forEach {
+                languageString += it.englishName + ", "
             }
-
-            movie.status.let {
-                fragmentMovieDetailBindingTemp.textViewMovieReleaseStatus.text = it
-            }
-
-            movie.tagline.let {
-                fragmentMovieDetailBindingTemp.textViewMovieReleaseTagline.text = it
-            }
-
-            if(movie.spokenLanguages?.size!! > 0){
-                var languageString = ""
-                movie.spokenLanguages!!.forEach {
-                    languageString += it.englishName + ", "
-                }
-                if(languageString.isNotEmpty()) {
-                    fragmentMovieDetailBindingTemp.textViewMovieSpokenLanguages.text =
-                        languageString.trimEnd().dropLast(1)
-                }
+            if(languageString.isNotEmpty()) {
+                fragmentMovieDetailBindingTemp.textViewMovieSpokenLanguages.text =
+                    languageString.trimEnd().dropLast(1)
             }
         }
     }
