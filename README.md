@@ -6,6 +6,8 @@ Dagger for dependency injection (https://developer.android.com/training/dependen
 
 Paging -3 for infinite lists (https://developer.android.com/topic/libraries/architecture/paging/v3-overview)
 
+Android room for offline storage (To save favourite items)
 
 # To do
 UI conversion from XML layouts to Jetpack compose
+Store lists offline
