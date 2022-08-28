@@ -19,6 +19,6 @@ Store lists offline
         <img width="45%" src="Screenshot_20220828_120047.png" alt="Search" title="Search"></img>
 </div>
 
-![Alt text](Screenshot_20220828_120021.png?raw=true "Now Playing")
-![Alt text](Screenshot_20220828_120047.png?raw=true "Search")
+#![Alt text](Screenshot_20220828_120021.png?raw=true "Now Playing")
+#![Alt text](Screenshot_20220828_120047.png?raw=true "Search")
 
