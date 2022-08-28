@@ -13,5 +13,12 @@ UI conversion from XML layouts to Jetpack compose
 Store lists offline
 
 #Screenshots
+<div align="center">
+        <img width="45%" src="Screenshot_20220828_120021.png" alt="Now Playing" title="Now Playing"</img>
+        <img height="0" width="8px">
+        <img width="45%" src="Screenshot_20220828_120047.png" alt="Search" title="Search"></img>
+</div>
+
 ![Alt text](Screenshot_20220828_120021.png?raw=true "Now Playing")
 ![Alt text](Screenshot_20220828_120047.png?raw=true "Search")
+
